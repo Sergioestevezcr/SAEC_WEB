@@ -32,3 +32,5 @@ python app.py
 - Ejecuta con Gunicorn: `gunicorn -w 2 -b 0.0.0.0:8000 app:create_app()`
 - Configura Nginx para servir `/static/` con cache y gzip.
 - Añade HTTPS y HTTP/2. Genera sitemap.xml y robots.txt (puedes servirlos como estáticos).
+
+no se que paso
