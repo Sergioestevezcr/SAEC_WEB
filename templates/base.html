@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <!-- SEO básico -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ SITE_NAME }} | {% block title %}{% endblock %}</title>
+  <meta name="description"
+    content="Servicios avanzados de desarrollo web, branding, SEO y marketing digital para emprendedores y creadores." />
+  <meta name="keywords" content="desarrollo web, diseño de logos, SEO, posicionamiento, marketing digital, SAEC" />
+  <meta name="author" content="SAEC" />
+  <meta name="theme-color" content="{{ PRIMARY_COLOR }}" />
+
+  <!-- Open Graph / Social share (WhatsApp, Facebook, X/Twitter) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ SITE_DOMAIN }}" />
+  <meta property="og:title" content="{{ SITE_NAME }} — Servicios Digitales" />
+  <meta property="og:description"
+    content="Creamos páginas web potentes, branding memorable y posicionamiento SEO para tu negocio." />
+  <meta property="og:image" content="{{ OG_IMAGE }}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ SITE_NAME }} — Servicios Digitales" />
+  <meta name="twitter:description" content="Creamos páginas web potentes, branding memorable y posicionamiento SEO." />
+  <meta name="twitter:image" content="{{ OG_IMAGE }}" />
+
+  <!-- JSON-LD Schema.org (Organization + WebSite) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "{{ SITE_NAME }}",
+      "url": "{{ SITE_DOMAIN }}",
+      "logo": "/static/img/logo-saec.png",
+      "sameAs": [
+        "https://www.instagram.com/tu_instagram",
+        "https://www.facebook.com/tu_facebook",
+        "https://x.com/tu_x",
+        "https://wa.me/xxxxxxxxxx"
+      ]
+    }
+    </script>
+
+  <!-- Favicons (solo enlaza tus imágenes reales) -->
+  <!-- Coloca tus archivos .png/.ico/.svg y ajusta href -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/img/apple-touch-icon.png">
+  <link rel="manifest" href="/static/manifest.json">
+
+  <!-- CSS principal -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <!-- Icons (Feather) -->
+  <script defer src="https://unpkg.com/feather-icons"></script>
+  {% block head_extra %}{% endblock %}
+
+  <!-- Google Analytics 4 (activar con GA4_ID en .env) -->
+  {% if GA4_ID %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA4_ID }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', '{{ GA4_ID }}');
+  </script>
+  {% endif %}
+
+  <!-- Meta Pixel Facebook (activar con FB_PIXEL_ID en .env) -->
+  {% if FB_PIXEL_ID %}
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '{{ FB_PIXEL_ID }}'); fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id={{ FB_PIXEL_ID }}&ev=PageView&noscript=1" /></noscript>
+  {% endif %}
+
+</head>
+
+<body>
+  <!-- Header / Navbar -->
+  <header class="navbar">
+    <a class="brand" href="{{ url_for('main.index') }}">
+      <img src="/static/img/logo-saec.png" alt="SAEC logo" class="brand-logo">
+      <span>SAEC</span>
+    </a>
+    <nav class="nav-links">
+      <a href="{{ url_for('main.index') }}">Inicio</a>
+      <a href="{{ url_for('main.proyectos') }}">Nuestros desarrollos</a>
+      <a href="{{ url_for('main.conocenos') }}">Conócenos</a>
+      <a href="{{ url_for('main.contacto') }}">Contáctanos</a>
+      <a class="btn-login" href="{{ url_for('auth.login') }}">Admin</a>
+    </nav>
+  </header>
+
+  <!-- Contenido específico de cada página -->
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Sección CTA antes del footer (opcional en páginas) -->
+  {% block prefooter %}{% endblock %}
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <h4>SAEC</h4>
+        <p>Servicios avanzados para emprendedores y creadores. Desarrollo web, SEO y branding.</p>
+      </div>
+      <div>
+        <h4>Enlaces</h4>
+        <ul>
+          <li><a href="{{ url_for('main.index') }}">Inicio</a></li>
+          <li><a href="{{ url_for('main.proyectos') }}">Nuestros desarrollos</a></li>
+          <li><a href="{{ url_for('main.conocenos') }}">Conócenos</a></li>
+          <li><a href="{{ url_for('main.contacto') }}">Contáctanos</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Redes</h4>
+        <div class="socials">
+          <a href="https://wa.me/xxxxxxxxxx" aria-label="WhatsApp"><i data-feather="message-circle"></i></a>
+          <a href="https://www.instagram.com/tu_instagram" aria-label="Instagram"><i data-feather="instagram"></i></a>
+          <a href="https://x.com/tu_x" aria-label="X"><i data-feather="twitter"></i></a>
+          <a href="https://www.facebook.com/tu_facebook" aria-label="Facebook"><i data-feather="facebook"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="copy">Desarrollado por SAEC © 2025 — Todos los derechos reservados.</div>
+  </footer>
+
+  <!-- JS principal -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script>feather.replace()</script>
+</body>
+
+</html>

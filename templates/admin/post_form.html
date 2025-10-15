@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Editar' if item else 'Nuevo' }} post{% endblock %}
+{% block content %}
+<h1>{{ 'Editar' if item else 'Nuevo' }} post</h1>
+<form class="form" method="post">
+  <label>Título <input type="text" name="title" value="{{ item.title if item }}"></label>
+  <label>Slug (URL) <input type="text" name="slug" value="{{ item.slug if item }}"></label>
+  <label>Excerpt <input type="text" name="excerpt" value="{{ item.excerpt if item }}"></label>
+  <label>Imagen <input type="text" name="image_url" value="{{ item.image_url if item }}"></label>
+  <label>Contenido (HTML permitido)
+    <textarea name="content" rows="10">{{ item.content if item }}</textarea>
+  </label>
+  <button class="btn primary" type="submit">Guardar</button>
+</form>
+{% endblock %}

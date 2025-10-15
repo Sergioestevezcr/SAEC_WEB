@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Nuestros desarrollos{% endblock %}
+{% block content %}
+<h1>Nuestros desarrollos</h1>
+<p>Se muestran automáticamente: 4 tarjetas por fila en escritorio, adaptativo en móvil/tablet.</p>
+<div class="cards-grid projects-grid">
+  {% for p in projects %}
+    <article class="card project-card">
+      <div class="project-icons">
+        {% if p.repo_url %}<a href="{{ p.repo_url }}" target="_blank"><i data-feather="github"></i></a>{% endif %}
+        {% if p.live_url %}<a href="{{ p.live_url }}" target="_blank"><i data-feather="external-link"></i></a>{% endif %}
+      </div>
+      <img src="{{ p.image_url or '/static/img/project-placeholder.jpg' }}" alt="{{ p.title }}">
+      <h3>{{ p.title }}</h3>
+      <p>{{ p.description }}</p>
+      <div class="tags">
+        <span class="{{ 'open' if p.is_open_source else 'closed' }}">{{ 'Open Source' if p.is_open_source else 'Cerrado' }}</span>
+      </div>
+    </article>
+  {% else %}
+    <p>Aún no hay proyectos cargados.</p>
+  {% endfor %}
+</div>
+{% endblock %}

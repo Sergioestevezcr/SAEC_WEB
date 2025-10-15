@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+<article class="post">
+  <img class="post-hero" src="{{ post.image_url or '/static/img/project-placeholder.jpg' }}" alt="{{ post.title }}">
+  <h1>{{ post.title }}</h1>
+  <p class="muted">{{ post.excerpt }}</p>
+  <div class="post-content">
+    {{ post.content|safe }}
+  </div>
+</article>
+{% endblock %}

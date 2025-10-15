@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Panel de administración{% endblock %}
+{% block content %}
+<h1>Panel</h1>
+
+<h2>Mensajes de contacto</h2>
+<table class="table">
+  <thead><tr><th>Nombre</th><th>Email</th><th>Teléfono</th><th>Mensaje</th><th>Fecha</th></tr></thead>
+  <tbody>
+    {% for c in contactos %}
+      <tr><td>{{ c.name }}</td><td>{{ c.email }}</td><td>{{ c.phone }}</td><td>{{ c.message }}</td><td>{{ c.created_at }}</td></tr>
+    {% else %}
+      <tr><td colspan="5">Sin mensajes.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2 class="mt-2">Proyectos <a class="btn" href="{{ url_for('admin.project_new') }}">Nuevo</a></h2>
+<div class="cards-grid projects-grid">
+  {% for p in proyectos %}
+    <article class="card project-card">
+      <img src="{{ p.image_url or '/static/img/project-placeholder.jpg' }}">
+      <h3>{{ p.title }}</h3>
+      <p>{{ p.description }}</p>
+      <form method="post" action="{{ url_for('admin.project_delete', id=p.id) }}">
+        <a class="btn" href="{{ url_for('admin.project_edit', id=p.id) }}">Editar</a>
+        <button class="btn" onclick="return confirm('¿Eliminar?')" type="submit">Eliminar</button>
+      </form>
+    </article>
+  {% else %}
+    <p>No hay proyectos.</p>
+  {% endfor %}
+</div>
+
+<h2 class="mt-2">Blog <a class="btn" href="{{ url_for('admin.post_new') }}">Nuevo post</a></h2>
+<div class="cards-grid projects-grid">
+  {% for p in posts %}
+    <article class="card">
+      <img src="{{ p.image_url or '/static/img/project-placeholder.jpg' }}">
+      <h3>{{ p.title }}</h3>
+      <p>{{ p.excerpt }}</p>
+      <form method="post" action="{{ url_for('admin.post_delete', slug=p.slug) }}">
+        <a class="btn" href="{{ url_for('admin.post_edit', slug=p.slug) }}">Editar</a>
+        <button class="btn" onclick="return confirm('¿Eliminar?')" type="submit">Eliminar</button>
+      </form>
+    </article>
+  {% else %}
+    <p>No hay artículos.</p>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Blog{% endblock %}
+{% block content %}
+<h1>Blog</h1>
+<div class="cards-grid projects-grid">
+  {% for p in posts %}
+    <article class="card">
+      <img src="{{ p.image_url or '/static/img/project-placeholder.jpg' }}" alt="{{ p.title }}">
+      <h3><a href="{{ url_for('main.blog_detail', slug=p.slug) }}">{{ p.title }}</a></h3>
+      <p>{{ p.excerpt or p.content[:140] ~ '…' }}</p>
+      <a class="btn" href="{{ url_for('main.blog_detail', slug=p.slug) }}">Leer más</a>
+    </article>
+  {% else %}
+    <p>No hay artículos publicados todavía.</p>
+  {% endfor %}
+</div>
+{% endblock %}

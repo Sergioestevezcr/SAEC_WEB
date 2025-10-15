@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-content">
+    <h1>Impulsamos tu marca con <span class="accent">webs rápidas</span>, <span class="accent">branding</span> y <span
+        class="accent">SEO</span>.</h1>
+    <p>Transformamos ideas en plataformas digitales sólidas, elegantes y funcionales.</p>
+    <a class="btn primary" href="{{ url_for('main.contacto') }}">Quiero un proyecto</a>
+  </div>
+  <div class="hero-art">
+    <!-- Espacio de imagen/ilustración. Ajusta la ruta de tu imagen -->
+    <img src="/static/img/hero.jpg" alt="Soluciones SAEC" />
+  </div>
+</section>
+
+<section class="services">
+  <h2>Servicios</h2>
+  <div class="cards-grid">
+    <article class="card">
+      <i data-feather="code"></i>
+      <h3>Creación de páginas web</h3>
+      <p>Landing pages, e‑commerce, catálogos y aplicaciones a medida.</p>
+    </article>
+    <article class="card">
+      <i data-feather="figma"></i>
+      <h3>Diseño de logos</h3>
+      <p>Identidad visual profesional y consistente con tu marca.</p>
+    </article>
+    <article class="card">
+      <i data-feather="search"></i>
+      <h3>SEO y analítica</h3>
+      <p>Auditoría técnica, contenidos y medición para escalar tráfico.</p>
+    </article>
+    <article class="card">
+      <i data-feather="share-2"></i>
+      <h3>Redes y posicionamiento</h3>
+      <p>Estrategia de contenidos y anuncios para crecer tu audiencia.</p>
+    </article>
+  </div>
+</section>
+
+<section class="projects">
+  <h2>Proyectos abiertos (Open Source)</h2>
+  {% for p in open_projects %}
+  <div class="project-row">
+    <div class="project-text">
+      <div class="project-actions">
+        {% if p.repo_url %}<a href="{{ p.repo_url }}" target="_blank" aria-label="Repositorio"><i
+            data-feather="github"></i></a>{% endif %}
+        {% if p.live_url %}<a href="{{ p.live_url }}" target="_blank" aria-label="Demo"><i
+            data-feather="external-link"></i></a>{% endif %}
+      </div>
+      <h3>{{ p.title }}</h3>
+      <p>{{ p.description }}</p>
+    </div>
+    <div class="project-image">
+      <img src="{{ p.image_url or '/static/img/project-placeholder.jpg' }}" alt="{{ p.title }}">
+    </div>
+  </div>
+  {% else %}
+  <p>No hay proyectos open source aún.</p>
+  {% endfor %}
+</section>
+
+<section class="projects">
+  <h2>Proyectos cerrados (Desplegados)</h2>
+  <div class="cards-grid">
+    {% for p in closed_projects %}
+    <article class="card project-card">
+      <div class="project-icons">
+        {% if p.repo_url %}<a href="{{ p.repo_url }}" target="_blank"><i data-feather="github"></i></a>{% endif %}
+        {% if p.live_url %}<a href="{{ p.live_url }}" target="_blank"><i data-feather="external-link"></i></a>{% endif
+        %}
+      </div>
+      <img src="{{ p.image_url or '/static/img/project-placeholder.jpg' }}" alt="{{ p.title }}">
+      <h3>{{ p.title }}</h3>
+      <p>{{ p.description }}</p>
+    </article>
+    {% else %}
+    <p>No hay proyectos cerrados aún.</p>
+    {% endfor %}
+  </div>
+  <div class="center mt-2">
+    <a class="btn" href="{{ url_for('main.proyectos') }}">Ver todos los desarrollos</a>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <h2>Contáctanos</h2>
+  <form action="{{ url_for('main.contacto') }}" method="POST" class="form">
+    <div class="grid-2">
+      <label>Nombre
+        <input type="text" name="name" placeholder="Tu nombre" required>
+      </label>
+      <label>Correo
+        <input type="email" name="email" placeholder="tucorreo@dominio.com" required>
+      </label>
+    </div>
+    <div class="grid-2">
+      <label>Teléfono
+        <input type="text" name="phone" placeholder="+57 300 000 0000">
+      </label>
+      <label>¿Cómo podemos ayudarte?
+        <select name="topic">
+          <option>Web nueva</option>
+          <option>Logo / Branding</option>
+          <option>SEO</option>
+          <option>Otro</option>
+        </select>
+      </label>
+    </div>
+    <label>Mensaje
+      <textarea name="message" rows="5" placeholder="Cuéntanos tu idea..." required></textarea>
+    </label>
+    <button class="btn primary" type="submit">Enviar</button>
+
+    <!-- reCAPTCHA widget (checkbox/inline) -->
+    <div class="g-recaptcha" data-sitekey="{{ RECAPTCHA_SITE_KEY }}"></div>
+  </form>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+</section>
+{% endblock %}

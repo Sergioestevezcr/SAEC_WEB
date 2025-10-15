@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Contáctanos{% endblock %}
+{% block content %}
+<h1>Contáctanos</h1>
+<p>Te responderemos en menos de 24 horas.</p>
+<form action="{{ url_for('main.contacto') }}" method="POST" class="form">
+  <div class="grid-2">
+    <label>Nombre
+      <input type="text" name="name" required>
+    </label>
+    <label>Correo
+      <input type="email" name="email" required>
+    </label>
+  </div>
+  <label>Teléfono
+    <input type="text" name="phone">
+  </label>
+  <label>Mensaje
+    <textarea name="message" rows="6" required></textarea>
+  </label>
+  <button class="btn primary" type="submit">Enviar</button>
+
+  <!-- reCAPTCHA widget (checkbox/inline) -->
+  <div class="g-recaptcha" data-sitekey="{{ RECAPTCHA_SITE_KEY }}"></div>
+  </form>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+{% endblock %}

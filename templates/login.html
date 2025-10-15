@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Acceso administrador{% endblock %}
+{% block content %}
+<h1>Iniciar sesión</h1>
+<form action="{{ url_for('auth.login') }}" method="POST" class="form small">
+  <label>Correo
+    <input type="email" name="email" placeholder="admin@saec.com" required>
+  </label>
+  <label>Contraseña
+    <input type="password" name="password" placeholder="******" required>
+  </label>
+  <button class="btn primary" type="submit">Entrar</button>
+</form>
+{% endblock %}
