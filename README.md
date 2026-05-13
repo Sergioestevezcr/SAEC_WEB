@@ -33,4 +33,3 @@ python app.py
 - Configura Nginx para servir `/static/` con cache y gzip.
 - Añade HTTPS y HTTP/2. Genera sitemap.xml y robots.txt (puedes servirlos como estáticos).
 
-no se que paso
